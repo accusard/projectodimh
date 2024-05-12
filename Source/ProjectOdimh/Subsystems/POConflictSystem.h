@@ -29,8 +29,8 @@ public:
 	// request class (i.e Match3CombatGrid) from subsystems that implements combat interface
 	UFUNCTION()
 	TSubclassOf<AActor> GetModeClass() const;
-	
-	AActor* Resolve(const TArray<AActor*>& CombatantsList) const;
+
+	AInfo* ResolveConflict(const TArray<AActor*>& CombatantsList) const;
 	
 	UObject* PickRandom(const TArray<UObject*>& List) const;
 

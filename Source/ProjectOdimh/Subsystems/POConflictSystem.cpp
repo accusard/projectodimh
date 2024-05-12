@@ -61,10 +61,11 @@ TSubclassOf<AActor> UPOConflictSystem::GetModeClass() const
 	return nullptr;
 }
 
-AActor* UPOConflictSystem::Resolve(const TArray<AActor*>& CombatantsList) const
+AInfo* UPOConflictSystem::ResolveConflict(const TArray<AActor*>& CombatantsList) const
 {
-	UE_LOG(LogTemp, Warning, TEXT("Resolving Combat.. using PickRandom() function."));
-	return Cast<AActor>(PickRandom(TArray<UObject*>(CombatantsList)));
+	AActor* Winner = Cast<AInfo>(PickRandom(TArray<UObject*>(CombatantsList)));
+	AInfo* ConflictResult = nullptr;
+	return ConflictResult;
 }
 
 UObject* UPOConflictSystem::PickRandom(const TArray<UObject*>& List) const
