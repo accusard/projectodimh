@@ -6,6 +6,7 @@
 #include "ProjectOdimh/POGameInstance.h"
 #include "ProjectOdimh/ClassInterface/CombatModeInterface.h"
 #include "ProjectOdimh/Data/Points.h"
+#include "ProjectOdimh/Entities/Game/ConflictResult.h"
 #include "ProjectOdimh/Entities/Game/POStage.h"
 
 
@@ -61,10 +62,12 @@ TSubclassOf<AActor> UPOConflictSystem::GetModeClass() const
 	return nullptr;
 }
 
-AInfo* UPOConflictSystem::ResolveConflict(const TArray<AActor*>& CombatantsList) const
+UConflictResult* UPOConflictSystem::ResolveConflict(AActor* FirstCombatant, AActor* SecondCombatant) const
 {
-	AActor* Winner = Cast<AInfo>(PickRandom(TArray<UObject*>(CombatantsList)));
-	AInfo* ConflictResult = nullptr;
+	UConflictResult* ConflictResult = NewObject<UConflictResult>();
+	
+	ConflictResult->Init(Winner, Loser, MatchOutCome, MapPoint);
+	
 	return ConflictResult;
 }
 

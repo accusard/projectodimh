@@ -18,6 +18,7 @@ class AGameplayRunModeBase;
 class APOGameState;
 
 /**
+ * NOTE: This class is deprecated. Most logic have been moved to UMatch3CombatSystem.
  * The mode for a Match3 game. Tracks a turn-based puzzle game.
  */
 UCLASS()

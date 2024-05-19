@@ -7,6 +7,7 @@
 #include "ProjectOdimh/Events/BaseEvent.h"
 #include "POConflictSystem.generated.h"
 
+class UConflictResult;
 class UCombatModeInterface;
 
 /**
@@ -30,7 +31,7 @@ public:
 	UFUNCTION()
 	TSubclassOf<AActor> GetModeClass() const;
 
-	AInfo* ResolveConflict(const TArray<AActor*>& CombatantsList) const;
+	UConflictResult* ResolveConflict(AActor* FirstCombatant, AActor* SecondCombatant) const;
 	
 	UObject* PickRandom(const TArray<UObject*>& List) const;
 
