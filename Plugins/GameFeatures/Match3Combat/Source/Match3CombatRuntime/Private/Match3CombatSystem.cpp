@@ -24,7 +24,8 @@ TSubclassOf<AActor> UMatch3CombatSystem::GetCombatFieldClass()
 
 UConflictResult* UMatch3CombatSystem::ResolveConflict(TArray<AActor*> Combatants) const
 {
-	// TODO#1234: Create grid here
+	// TODO#1234: Grid already created by GameMode->OnStagingLoaded
+	// continue logic here
 	UPOGameInstance::AddOnScreenDebugMessage("ResolveConflict Begins!");
 	UE_LOG(LogTemp, Warning, TEXT("ResolveConflict Begins!"));
 	return nullptr;

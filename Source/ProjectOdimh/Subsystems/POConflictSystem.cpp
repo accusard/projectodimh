@@ -28,7 +28,7 @@ void UPOConflictSystem::OnThresholdMet(AActor* Actor, UBaseEvent* Event)
 	}
 }
 
-UGameInstanceSubsystem* UPOConflictSystem::GetCombatSystem() const
+UGameInstanceSubsystem* UPOConflictSystem::GetConflictInterface() const
 {
 	const TArray<UGameInstanceSubsystem*>& List = GetGameInstance()->GetSubsystemArray<UGameInstanceSubsystem>();
 	
@@ -47,7 +47,7 @@ UGameInstanceSubsystem* UPOConflictSystem::GetCombatSystem() const
 
 TSubclassOf<AActor> UPOConflictSystem::GetConflictFieldClass() const
 {
-	if(ICombatModeInterface* Interface = Cast<ICombatModeInterface>(GetCombatSystem()))
+	if(ICombatModeInterface* Interface = Cast<ICombatModeInterface>(GetConflictInterface()))
 	{
 		ensure(Interface);
 		return Interface->GetCombatFieldClass();

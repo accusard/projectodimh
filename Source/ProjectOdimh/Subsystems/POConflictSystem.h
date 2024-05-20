@@ -26,7 +26,7 @@ public:
 	/** Implement this for initialization of instances of the system */
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 	
-	UGameInstanceSubsystem* GetCombatSystem() const;
+	UGameInstanceSubsystem* GetConflictInterface() const;
 	
 	// request class (i.e Match3CombatGrid) from the FIRST subsystem that implements combat interface
 	UFUNCTION()
