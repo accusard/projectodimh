@@ -21,5 +21,6 @@ class PROJECTODIMH_API ICombatModeInterface
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual TSubclassOf<AActor> GetMode() = 0;
+	virtual TSubclassOf<AActor> GetCombatFieldClass() = 0;
+	virtual class UConflictResult* ResolveConflict(TArray<AActor*> Combatants) const;
 };

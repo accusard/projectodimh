@@ -19,6 +19,7 @@ class PROJECTODIMH_API UPOConflictSystem : public UGameInstanceSubsystem
 	GENERATED_BODY()
 
 public:
+	// 
 	UFUNCTION()
 	void OnThresholdMet(AActor* Actor, UBaseEvent* Event);
 	
@@ -27,11 +28,9 @@ public:
 	
 	UGameInstanceSubsystem* GetCombatSystem() const;
 	
-	// request class (i.e Match3CombatGrid) from subsystems that implements combat interface
+	// request class (i.e Match3CombatGrid) from the FIRST subsystem that implements combat interface
 	UFUNCTION()
-	TSubclassOf<AActor> GetModeClass() const;
-
-	UConflictResult* ResolveConflict(AActor* FirstCombatant, AActor* SecondCombatant) const;
+	TSubclassOf<AActor> GetConflictFieldClass() const;
 	
 	UObject* PickRandom(const TArray<UObject*>& List) const;
 

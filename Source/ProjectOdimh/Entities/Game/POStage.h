@@ -51,7 +51,7 @@ public:
 	void Initialize(const UPOStageData* Data);
 
 	FOnStagingSignature OnStagingFinished;
-	
+
 	APOMapPoint* GetMapPoint() const;
 	
 	bool IsStageFull() const { return StagingComponent->IsStageFull(); }

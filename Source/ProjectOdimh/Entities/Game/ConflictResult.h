@@ -25,13 +25,11 @@ class PROJECTODIMH_API UConflictResult : public UObject
 
 	friend class UPOConflictSystem;
 	
-public:
 	UConflictResult();
 
-protected:
-	void Init(AActor* InWinner, AActor* InLoser, const FMatchOutcome& Outcome, APOMapPoint* InMapPoint);
-
 public:
+	void Init(AActor* InWinner, AActor* InLoser, const FMatchOutcome& Outcome, class APOMapPoint* InMapPoint);
+	
 	AActor* GetWinner() const;
 	
 	AActor* GetLoser() const;
@@ -48,7 +46,7 @@ private:
 	AActor* Loser;
 
 	UPROPERTY()
-	FMatchOutcome& MatchOutcome;
+	FMatchOutcome MatchOutcome;
 
 	UPROPERTY()
 	APOMapPoint* MapPoint;

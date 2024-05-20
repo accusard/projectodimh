@@ -4,6 +4,7 @@
 #include "POStage.h"
 #include "POCharacter.h"
 #include "POMapPoint.h"
+#include "Field/FieldSystemNoiseAlgo.h"
 #include "Modes/POGameMode.h"
 #include "ProjectOdimh/POGameInstance.h"
 #include "ProjectOdimh/Components/POStagingComponent.h"
@@ -16,22 +17,6 @@ void APOStage::BeginPlay()
 	Super::BeginPlay();
 
 	ensure(GetOwner());
-
-	if(const UPOConflictSystem* System = GetGameInstance()->GetSubsystem<UPOConflictSystem>())
-	{
-		if(const TSubclassOf<AActor> Class = System->GetModeClass())
-		{
-			FActorSpawnParameters Params;
-			constexpr ESpawnActorCollisionHandlingMethod SpawnMethod = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-		
-			Params.Instigator = this;
-			Params.SpawnCollisionHandlingOverride = SpawnMethod;
-			GetWorld()->SpawnActor<AActor>(Class, GetTransform(), Params);
-		}
-
-		// TODO: set system for match3 grid, contestants, and wait for result
-		// match3 will be responsible for notifying System after the session end
-	}
 }
 
 void APOStage::EndPlay(const EEndPlayReason::Type EndPlayReason)

@@ -45,30 +45,15 @@ UGameInstanceSubsystem* UPOConflictSystem::GetCombatSystem() const
 	return nullptr;
 }
 
-TSubclassOf<AActor> UPOConflictSystem::GetModeClass() const
+TSubclassOf<AActor> UPOConflictSystem::GetConflictFieldClass() const
 {
-	if(const UGameInstance* Outer = GetGameInstance())
+	if(ICombatModeInterface* Interface = Cast<ICombatModeInterface>(GetCombatSystem()))
 	{
-		const TArray<UGameInstanceSubsystem*>& List = Outer->GetSubsystemArray<UGameInstanceSubsystem>();
-		for(UGameInstanceSubsystem* CombatSystem : List)
-		{
-			if(ICombatModeInterface* Interface = Cast<ICombatModeInterface>(CombatSystem))
-			{
-				return Interface->GetMode();
-			}
-		}
+		ensure(Interface);
+		return Interface->GetCombatFieldClass();
 	}
 	
 	return nullptr;
-}
-
-UConflictResult* UPOConflictSystem::ResolveConflict(AActor* FirstCombatant, AActor* SecondCombatant) const
-{
-	UConflictResult* ConflictResult = NewObject<UConflictResult>();
-	
-	ConflictResult->Init(Winner, Loser, MatchOutCome, MapPoint);
-	
-	return ConflictResult;
 }
 
 UObject* UPOConflictSystem::PickRandom(const TArray<UObject*>& List) const

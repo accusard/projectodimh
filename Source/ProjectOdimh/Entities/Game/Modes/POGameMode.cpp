@@ -5,6 +5,7 @@
 #include "GameplayTagAssetInterface.h"
 #include "Engine/AssetManager.h"
 #include "Kismet/GameplayStatics.h"
+#include "ProjectOdimh/ClassInterface/CombatModeInterface.h"
 #include "ProjectOdimh/Data/POSaveGame.h"
 #include "ProjectOdimh/Data/POStageData.h"
 #include "ProjectOdimh/Entities/Game/POStage.h"
@@ -87,7 +88,18 @@ void APOGameMode::OnStagingLoaded(const FPrimaryAssetId Id, AActor* AtPoint, con
 			
 			if(const APOStage* NewStage = Cast<APOStage>(SpawnStage(Data)))
 			{
-				
+				if(const UPOConflictSystem* CombatSystem = GetGameInstance()->GetSubsystem<UPOConflictSystem>())
+				{
+					// Spawn the conflict field mode
+					if(const TSubclassOf<AActor> FieldClass = CombatSystem->GetConflictFieldClass())
+					{
+						FActorSpawnParameters Params;
+						Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+						
+						GetWorld()->SpawnActor<AActor>(FieldClass, NewStage->GetTransform(), Params);
+						UConflictResult* Result = Cast<ICombatModeInterface>(CombatSystem)->ResolveConflict(ActorsToBeStaged);
+					}
+				}
 			}
 		}
 	}

@@ -17,5 +17,5 @@ public:
 	UPOSubsystemsOverride() {}
 	
 	UPROPERTY(Config, EditAnywhere, Category="Combat System")
-	TSoftClassPtr<AActor> Mode;
+	TSoftClassPtr<AActor> ConflictFieldClass;
 };

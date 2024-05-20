@@ -20,11 +20,12 @@ class MATCH3COMBATRUNTIME_API UMatch3CombatSystem : public UGameInstanceSubsyste
 	GENERATED_BODY()
 
 public:
-
+	virtual TSubclassOf<AActor> GetCombatFieldClass() override;
+	
+	virtual UConflictResult* ResolveConflict(TArray<AActor*> Combatants) const override;
+public:
 	
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
-	
-	virtual TSubclassOf<AActor> GetMode() override;
 	
 	void NewMatch3Session(AActor* CombatStage);
 

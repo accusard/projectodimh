@@ -3,6 +3,7 @@
 
 #include "Match3CombatSystem.h"
 #include "CombatGridComponent.h"
+#include "ProjectOdimh/POGameInstance.h"
 #include "ProjectOdimh/POSubsystemsOverride.h"
 #include "ProjectOdimh/Components/POContextNeedsComponent.h"
 
@@ -16,9 +17,17 @@ void UMatch3CombatSystem::Initialize(FSubsystemCollectionBase& Collection)
 	// EvtManager->OnActorEvent.AddUniqueDynamic(this, &ADEPRECATED_Match3GameMode::OnTurnEnd);
 }
 
-TSubclassOf<AActor> UMatch3CombatSystem::GetMode()
+TSubclassOf<AActor> UMatch3CombatSystem::GetCombatFieldClass()
 {
-	return GetDefault<UPOSubsystemsOverride>()->Mode.Get();
+	return GetDefault<UPOSubsystemsOverride>()->ConflictFieldClass.Get();
+}
+
+UConflictResult* UMatch3CombatSystem::ResolveConflict(TArray<AActor*> Combatants) const
+{
+	// TODO#1234: Create grid here
+	UPOGameInstance::AddOnScreenDebugMessage("ResolveConflict Begins!");
+	UE_LOG(LogTemp, Warning, TEXT("ResolveConflict Begins!"));
+	return nullptr;
 }
 
 void UMatch3CombatSystem::NewMatch3Session(AActor* CombatStage)
