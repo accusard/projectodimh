@@ -32,17 +32,21 @@ UGameInstanceSubsystem* UPOConflictSystem::GetConflictInterface() const
 {
 	const TArray<UGameInstanceSubsystem*>& List = GetGameInstance()->GetSubsystemArray<UGameInstanceSubsystem>();
 	
+	TArray<UGameInstanceSubsystem*> Resolvers;
+
 	for(UGameInstanceSubsystem* CombatSystem : List)
 	{
 		if(!CombatSystem->GetClass()->ImplementsInterface(UCombatModeInterface::StaticClass()))
 		{
 			continue;
 		}
-		
-		return CombatSystem;
+
+		Resolvers->Add(CombatSystem);
+
 	}
 	
-	return nullptr;
+	ensureMsg(Resolvers->Num() == 1, TEXT("Conflict resolver should only be 1. Using the first available ConflictResolver");
+	return Resolvers[0];
 }
 
 TSubclassOf<AActor> UPOConflictSystem::GetConflictFieldClass() const
