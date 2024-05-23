@@ -14,7 +14,7 @@
 #include "ProjectOdimh/Subsystems/POConflictSystem.h"
 #include "ProjectOdimh/Subsystems/POSaveGameSubsystem.h"
 
-void APOGameMode::AddOnActorsCollisionHandler(FOnActorsCollisionSignature& OnCollision)
+void APOGameMode::AddOnActorsCollisionHandler(FOnActorsCollectedAtPointSignature& OnCollision)
 {
 	OnCollision.AddDynamic(this, &APOGameMode::OnActorsArrivedAtPoint);
 }

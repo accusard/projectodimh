@@ -5,7 +5,7 @@
 #include "Engine/AssetManager.h"
 #include "ProjectOdimh/POGameInstance.h"
 #include "ProjectOdimh/Entities/Game/POStagingInfo.h"
-#include "ProjectOdimh/Components/POGroupThrowingCollision.h"
+#include "ProjectOdimh/Components/POActorCollectorSphere.h"
 #include "ProjectOdimh/POGameplayTags.cpp"
 #include "ProjectOdimh/Components/POContextNeedsComponent.h"
 

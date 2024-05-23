@@ -147,7 +147,7 @@ void UEventManager::ClearEventQueue(const bool bForceClear) const
 }
 
 
-void UEventManager::BindDelegateToSubsystems(FOnActorsCollisionSignature& Delegate) const
+void UEventManager::BindDelegateToSubsystems(FOnActorsCollectedAtPointSignature& Delegate) const
 {
     const TArray<UGameInstanceSubsystem*>& MySubsystems = GetGameInstance()->GetSubsystemArray<UGameInstanceSubsystem>();
     
@@ -189,7 +189,7 @@ void UEventManager::UnbindDelegateFromSubsystems(FOnStagingSignature& Stage) con
     }
 }
 
-void UEventManager::BindDelegateToActor(FOnActorsCollisionSignature& Delegate, AActor* Actor) const
+void UEventManager::BindDelegateToActor(FOnActorsCollectedAtPointSignature& Delegate, AActor* Actor) const
 {
     if(Actor->Implements<UDelegateBindingInterface>())
     {

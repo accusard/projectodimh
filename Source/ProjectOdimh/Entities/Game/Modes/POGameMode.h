@@ -59,6 +59,6 @@ public:
 	//~ End Debug Commands
 
 	//~ Begin IDelegateBindingInterface
-	virtual void AddOnActorsCollisionHandler(FOnActorsCollisionSignature& OnCollision) override;
+	virtual void AddOnActorsCollisionHandler(FOnActorsCollectedAtPointSignature& OnCollision) override;
 	//~ End IDelegateBindingInterface
 };

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "ProjectOdimh/Events/BaseEvent.h"
-#include "ProjectOdimh/Components/POGroupThrowingCollision.h"
+#include "ProjectOdimh/Components/POActorCollectorSphere.h"
 #include "ProjectOdimh/Entities/Game/POStage.h"
 #include "EventManager.generated.h"
 
@@ -97,11 +97,11 @@ public:
     
     TArray<UBaseEvent*> FindAll(TSubclassOf<UBaseEvent> EventClass);
     
-    void BindDelegateToSubsystems(FOnActorsCollisionSignature& Delegate) const;
+    void BindDelegateToSubsystems(FOnActorsCollectedAtPointSignature& Delegate) const;
     void BindDelegateToSubsystems(FOnStagingSignature& Delegate) const;
     void UnbindDelegateFromSubsystems(FOnStagingSignature& Stage) const;
     
-    void BindDelegateToActor(FOnActorsCollisionSignature& Delegate, AActor* Actor) const;
+    void BindDelegateToActor(FOnActorsCollectedAtPointSignature& Delegate, AActor* Actor) const;
 
     UPROPERTY(BlueprintReadOnly, Category="Match 3 Events")
     FDelegates Delegates;

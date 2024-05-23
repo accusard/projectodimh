@@ -1,4 +1,4 @@
-// Copyright 2023 Vanny Sou. All Rights Reserved.
+// Copyright 2024 Vanny Sou. All Rights Reserved.
 
 
 #include "ProjectOdimh/Entities/Game/POMapPoint.h"
@@ -7,22 +7,12 @@
 #include "ProjectOdimh/POGameInstance.h"
 #include "ProjectOdimh/Subsystems/EventManager.h"
 #include "ProjectOdimh/Components/POContextNeedsComponent.h"
-#include "ProjectOdimh/Components/POGroupThrowingCollision.h"
+#include "ProjectOdimh/Components/POActorCollectorSphere.h"
 #include "ProjectOdimh/POGameplayTags.h"
 
 APOMapPoint::APOMapPoint()
 {
 	SetMobility(EComponentMobility::Movable);
-
-	bDisableCollisionOnStash = true;
-	bStashActorsOnCollision = true;
-	bHideActorsOnStash = true;
-	
-	GroupCollisionComponent = CreateDefaultSubobject<UPOGroupThrowingCollision>("Group Throwing Component");
-	GroupCollisionComponent->InitSphereRadius(40.f);
-	
-	RootComponent = GroupCollisionComponent;
-	GetStaticMeshComponent()->SetupAttachment(GroupCollisionComponent);
 }
 
 void APOMapPoint::PostInitializeComponents()
@@ -32,12 +22,12 @@ void APOMapPoint::PostInitializeComponents()
 
 void APOMapPoint::GetOwnedGameplayTags(FGameplayTagContainer& TagContainer) const
 {
-	TagContainer.AppendTags(Locations);
+	TagContainer.AppendTags(MapTags);
 }
 
-void APOMapPoint::GetAllActiveContextTags(FGameplayTagContainer& Tags) const
+void APOMapPoint::GetAllActiveTags(FGameplayTagContainer& Tags, const TArray<AActor*>& Actors) const
 {
-	Tags.AppendTags(Locations);
+	Tags.AppendTags(MapTags);
 	
 	for(AActor* Actor : ActiveCharacters)
 	{
@@ -56,25 +46,9 @@ void APOMapPoint::BeginPlay()
 	const UPOGameInstance* Instance = GetWorld()->GetGameInstance<UPOGameInstance>();
 	const UEventManager* EventManager = Instance->GetSubsystem<UEventManager>();
 
-	GroupCollisionComponent->OnActorsCollided.AddDynamic(this, &APOMapPoint::OnActorsCollision);
+	CollectorSphere->OnActorsCollected.AddDynamic(this, &APOMapPoint::OnActorsCollision);
 	
-	EventManager->BindDelegateToActor(GroupCollisionComponent->OnActorsCollided, GameMode);
-}
-
-void APOMapPoint::OnActorsCollision(AActor* AtPoint, const TArray<AActor*>& CollidedActors)
-{
-	if(AtPoint->IsA<APOMapPoint>())
-	{
-		ActiveCharacters.Append(CollidedActors);
-	
-		if(bStashActorsOnCollision)
-		{
-			for(AActor* Actor : CollidedActors)
-			{
-				StashActor(Actor, this, StashingZAxisOffset, bDisableCollisionOnStash, bHideActorsOnStash);
-			}
-		}
-	}
+	EventManager->BindDelegateToActor(CollectorSphere->OnActorsCollected, GameMode);
 }
 
 void APOMapPoint::StashActor(AActor* TargetActor, const AActor* StashOn, const float ZAxis, const bool bDisableCollision, const bool bSetHidden)
@@ -148,14 +122,14 @@ void APOMapPoint::SetLocationFields(const FGameplayTagContainer& InTags)
 	
 	if(FieldTag.MatchesAnyExact(InTags))
 	{
-		Locations.AppendTags(InTags);
+		MapTags.AppendTags(InTags);
 	}
 	
 }
 
-void APOMapPoint::GetLocationFields(FGameplayTagContainer& OutFields)
+void APOMapPoint::GetMapTags(FGameplayTagContainer& OutFields)
 {
-	for(FGameplayTag Tag : Locations)
+	for(FGameplayTag Tag : MapTags)
 	{
 		if(Tag.MatchesTag(TAG_ALPHA_FIELD))
 		{
