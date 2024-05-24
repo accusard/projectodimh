@@ -97,11 +97,11 @@ public:
     
     TArray<UBaseEvent*> FindAll(TSubclassOf<UBaseEvent> EventClass);
     
-    void BindDelegateToSubsystems(FOnActorsCollectedAtPointSignature& Delegate) const;
+    void BindDelegateToSubsystems(FOnActorCollected& Delegate) const;
     void BindDelegateToSubsystems(FOnStagingSignature& Delegate) const;
     void UnbindDelegateFromSubsystems(FOnStagingSignature& Stage) const;
     
-    void BindDelegateToActor(FOnActorsCollectedAtPointSignature& Delegate, AActor* Actor) const;
+    void BindDelegateToActor(FOnActorCollected& Delegate, AActor* Actor) const;
 
     UPROPERTY(BlueprintReadOnly, Category="Match 3 Events")
     FDelegates Delegates;

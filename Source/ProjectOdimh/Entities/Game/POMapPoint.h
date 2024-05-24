@@ -37,5 +37,5 @@ protected:
 	FGameplayTagContainer MapTags;
 
 private:
-	void SetLocationFields(const FGameplayTagContainer& SetFields);
+	void SetMapTags(const FGameplayTagContainer& SetFields);
 };

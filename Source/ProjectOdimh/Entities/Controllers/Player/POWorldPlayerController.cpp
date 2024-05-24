@@ -23,10 +23,10 @@ void APOWorldPlayerController::ToggleStageControl()
     }
     else if(const APOGameMode* GameMode = Cast<APOGameMode>(GetWorld()->GetAuthGameMode()))
     {
-        if(APawn* Stage = GameMode->GetActiveStage())
-        {
-            Possess(Stage);
-        }
+        // if(APawn* Stage = GameMode->GetActiveStage())
+        // {
+        //     Possess(Stage);
+        // }
     }
 }
 

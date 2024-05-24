@@ -20,16 +20,16 @@ bool UPOStagingComponent::StageActor(AActor* InActor)
 		return false;
 	}
 	
-	if(const APOMapPoint* MapPoint = GetOwner<APOStage>()->GetMapPoint())
-	{
-		const TArray<AActor*> List = MapPoint->GetActiveCharacters();
-		
-		if(List.Find(InActor) == INDEX_NONE)
-		{
-			UE_LOG(LogTemp,Warning,TEXT("No active actors located at MapPoint to be placed on stage!"));
-			return false;
-		}
-	}
+	// if(const APOMapPoint* MapPoint = GetOwner<APOStage>()->GetMapPoint())
+	// {
+	// 	const TArray<AActor*> List = MapPoint->GetActiveCharacters();
+	// 	
+	// 	if(List.Find(InActor) == INDEX_NONE)
+	// 	{
+	// 		UE_LOG(LogTemp,Warning,TEXT("No active actors located at MapPoint to be placed on stage!"));
+	// 		return false;
+	// 	}
+	// }
 	
 	const FString NumStr = FString::Printf(TEXT("%i"), ActorsInPlay.Num()+1);
 	
@@ -79,7 +79,7 @@ void UPOStagingComponent::EmptyStage()
 		{
 			TArray<AActor*> Actors;
 			GetActorsInPlay(Actors);
-			MapPoint->MakeInactive(Stage, Actors);
+			// MapPoint->MakeInactive(Stage, Actors);
 			ActorsInPlay.Empty(Capacity);
 		}
 	}

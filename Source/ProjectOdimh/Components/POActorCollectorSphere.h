@@ -9,11 +9,11 @@
 /**
  * 
  */
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnActorsCollectedAtPointSignature, AActor*, AtPoint, const TArray<AActor*>&, ActorsInCollision);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnActorCollected, AActor*, AActor);
 
 /**
  * Keeps a collection of Actors that overlapped this component and broadcast the collected
- * array of actors. Also keep a PendingBroadcastList for actors that are not to be broadcasted
+ *
  */
 UCLASS(ClassGroup="Collision", meta=(DisplayName="Actor Collector Sphere", BlueprintSpawnableComponent))
 class PROJECTODIMH_API UPOActorCollectorSphere : public USphereComponent
@@ -28,17 +28,13 @@ public:
 	 * 
 	 */
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
-	FOnActorsCollectedAtPointSignature OnActorsCollected;
+	FOnActorCollected OnActorCollected;
 	
 protected:
 	virtual void BeginPlay() override;
 	
 	UFUNCTION()
 	void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-	void ClearList();
-
-private:
-	UPROPERTY(VisibleAnywhere, Category="Collection Sphere")
-	TArray<AActor*> Collection;
+	
 
 };

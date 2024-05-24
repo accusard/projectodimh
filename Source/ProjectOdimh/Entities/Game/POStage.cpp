@@ -9,7 +9,7 @@
 #include "ProjectOdimh/POGameInstance.h"
 #include "ProjectOdimh/Components/POStagingComponent.h"
 #include "ProjectOdimh/Data/POStageData.h"
-#include "ProjectOdimh/Subsystems/POConflictSystem.h"
+#include "ProjectOdimh/Subsystems/POContextProcessorSystem.h"
 
 
 void APOStage::BeginPlay()
@@ -77,7 +77,7 @@ void APOStage::Initialize(const UPOStageData* Data)
 			{
 				if(APOGameMode* Mode = Cast<APOGameMode>(GetWorld()->GetAuthGameMode()))
 				{
-					Mode->SetActiveStage(this);
+					// Mode->SetActiveStage(this);
 					break;
 				}
 			}

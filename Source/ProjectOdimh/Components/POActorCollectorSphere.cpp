@@ -3,6 +3,8 @@
 
 #include "ProjectOdimh/Components/POActorCollectorSphere.h"
 
+#include "ProjectOdimh/Subsystems/EventManager.h"
+
 
 UPOActorCollectorSphere::UPOActorCollectorSphere()
 {
@@ -41,11 +43,5 @@ void UPOActorCollectorSphere::OnBeginOverlap(UPrimitiveComponent* OverlappedComp
 		return;
 	}
 	
-	Collection.Add(OtherActor);
-	
-}
-
-void UPOActorCollectorSphere::ClearList()
-{
-	Collection.Empty();
+	OnActorCollected.Broadcast(OtherActor);
 }
